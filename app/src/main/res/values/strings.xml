@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">MultiLevelExpandableRecyclerView</string>
+    <string name="expand_collapse">expand/collapse</string>
+</resources>

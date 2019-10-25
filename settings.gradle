@@ -1,0 +1,2 @@
+include ':app', ':multilevelexpandablerecyclerview'
+rootProject.name='MultiLevelExpandableRecyclerView'
