@@ -94,6 +94,32 @@ public abstract class ExpandableRecyclerViewAdapter extends RecyclerView.Adapter
         }
     }
 
+    public List<RecyclerViewItem> getSelectedItems(RecyclerViewItem item) {
+        List<RecyclerViewItem> children = item != null ? item.getChildren() : getRootItems();
+        List<RecyclerViewItem> selectedItems = new ArrayList<>();
+
+        for (RecyclerViewItem child : children) {
+            if (child.isSelected())
+                selectedItems.add(child);
+
+            if (child.hasChildren()) {
+                selectedItems.addAll(getSelectedItems(child));
+            }
+        }
+
+        return selectedItems;
+    }
+
+    public List<RecyclerViewItem> getRootItems() {
+        List<RecyclerViewItem> roots = new ArrayList<>();
+
+        for (RecyclerViewItem item : recyclerViewItemList)
+            if (item.getParent() == null)
+                roots.add(item);
+
+        return roots;
+    }
+
     private void removeItem(int itemPosition) {
         recyclerViewItemList.remove(itemPosition);
         notifyItemRemoved(itemPosition);

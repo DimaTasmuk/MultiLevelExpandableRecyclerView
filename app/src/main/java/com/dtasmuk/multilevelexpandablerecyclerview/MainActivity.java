@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.Toast;
 
 //import androidx.appcompat.app.AppCompatActivity;
 //import androidx.recyclerview.widget.LinearLayoutManager;
@@ -95,5 +96,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
         adapter.onRestoreInstanceState(savedInstanceState);
+    }
+
+    public void buttonGetSelectedClicked(View view) {
+        Toast.makeText(this, "" + adapter.getSelectedItems(null), Toast.LENGTH_SHORT).show();
     }
 }

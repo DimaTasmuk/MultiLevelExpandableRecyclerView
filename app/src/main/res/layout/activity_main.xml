@@ -22,4 +22,13 @@
         android:onClick="buttonClick"
         android:layout_alignParentBottom="true"/>
 
+    <Button
+        android:id="@+id/btnGetSelected"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Get Selected"
+        android:onClick="buttonGetSelectedClicked"
+        android:layout_alignParentBottom="true"
+        android:layout_toEndOf="@id/btn"/>
+
 </RelativeLayout>

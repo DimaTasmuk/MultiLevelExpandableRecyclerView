@@ -67,17 +67,17 @@ public class MyAdapter extends ExpandableRecyclerViewAdapter {
         holder.icon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                boolean is_expanded = itemList.get(viewHolder.getAdapterPosition()).isExpanded();
-                RotateAnimation rotate = new RotateAnimation(is_expanded ? 180 : 0, is_expanded ? 0 : 180, RELATIVE_TO_SELF, 0.5f, RELATIVE_TO_SELF, 0.5f);
-                rotate.setDuration(300);
-                rotate.setFillAfter(true);
+            boolean is_expanded = itemList.get(viewHolder.getAdapterPosition()).isExpanded();
+            RotateAnimation rotate = new RotateAnimation(is_expanded ? 180 : 0, is_expanded ? 0 : 180, RELATIVE_TO_SELF, 0.5f, RELATIVE_TO_SELF, 0.5f);
+            rotate.setDuration(300);
+            rotate.setFillAfter(true);
 
-                ((Holder) viewHolder).icon.setAnimation(rotate);
-                if (is_expanded) {
-                    collapse(itemList.get(viewHolder.getAdapterPosition()));
-                } else {
-                    expand(itemList.get(viewHolder.getAdapterPosition()));
-                }
+            ((Holder) viewHolder).icon.setAnimation(rotate);
+            if (is_expanded) {
+                collapse(itemList.get(viewHolder.getAdapterPosition()));
+            } else {
+                expand(itemList.get(viewHolder.getAdapterPosition()));
+            }
             }
         });
 
