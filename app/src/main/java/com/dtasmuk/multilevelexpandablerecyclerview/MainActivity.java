@@ -68,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
         Item item2 = new Item(children2List);
         item2.setText("(2) Item #2 Level1");
         item2.getChildren().get(1).addChild(itemLevel3);
-        item2.getChildren().get(1).setSelectable(false);
+        item2.getChildren().get(1).setCheckType(ItemSelectableType.NONE);
 
         Item item3 = new Item(children3List);
         item3.setText("(3) Item #3 Level1");

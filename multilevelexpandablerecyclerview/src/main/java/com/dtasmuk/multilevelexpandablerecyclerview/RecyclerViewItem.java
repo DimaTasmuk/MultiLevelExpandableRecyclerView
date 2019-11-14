@@ -15,7 +15,7 @@ public class RecyclerViewItem implements Parcelable {
 
     private boolean expanded = false;
     private boolean selected = false;
-    private boolean selectable = true;
+    private ItemSelectableType checkType = ItemSelectableType.MULTI_SELECT;
 
     public RecyclerViewItem() {
         this.children = new ArrayList<>();
@@ -79,11 +79,19 @@ public class RecyclerViewItem implements Parcelable {
     }
 
     public boolean isSelected() {
-        return selectable && selected;
+        return isSelectable() && selected;
     }
 
     public void setSelected(boolean selected) {
         this.selected = selected;
+    }
+
+    public boolean isSelectable() {
+        return checkType.isSelectable();
+    }
+
+    public void setCheckType(ItemSelectableType checkType) {
+        this.checkType = checkType;
     }
 
     public void setSelectedParent() {
@@ -115,14 +123,6 @@ public class RecyclerViewItem implements Parcelable {
         }
     }
 
-    public boolean isSelectable() {
-        return selectable;
-    }
-
-    public void setSelectable(boolean selectable) {
-        this.selectable = selectable;
-    }
-
     private RecyclerViewItem(Parcel in) {
         level = in.readInt();
         parent = (RecyclerViewItem) in.readValue(RecyclerViewItem.class.getClassLoader());
@@ -134,7 +134,7 @@ public class RecyclerViewItem implements Parcelable {
         }
         expanded = in.readByte() != 0x00;
         selected = in.readByte() != 0x00;
-        selectable = in.readByte() != 0x00;
+        checkType = (ItemSelectableType) in.readValue(ItemSelectableType.class.getClassLoader());;
     }
 
     @Override
@@ -154,7 +154,7 @@ public class RecyclerViewItem implements Parcelable {
         }
         dest.writeByte((byte) (expanded ? 0x01 : 0x00));
         dest.writeByte((byte) (selected ? 0x01 : 0x00));
-        dest.writeByte((byte) (selectable ? 0x01 : 0x00));
+        dest.writeValue(checkType);
     }
 
     @SuppressWarnings("unused")
