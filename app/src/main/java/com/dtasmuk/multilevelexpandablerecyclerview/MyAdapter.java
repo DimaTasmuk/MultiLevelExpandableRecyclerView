@@ -17,6 +17,7 @@ import android.widget.TextView;
 //import androidx.constraintlayout.widget.ConstraintLayout;
 //import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static android.view.animation.Animation.RELATIVE_TO_SELF;
@@ -32,6 +33,12 @@ public class MyAdapter extends ExpandableRecyclerViewAdapter {
         this.itemList = itemList;
     }
 
+    MyAdapter(Context context) {
+        super(new ArrayList<>());
+        this.context = context;
+        this.itemList = new ArrayList<>();
+    }
+
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -45,14 +52,11 @@ public class MyAdapter extends ExpandableRecyclerViewAdapter {
         Item item = itemList.get(position);
 
         holder.title.setText(item.getText());
-        if (item.hasChildren() && item.isExpanded()) {
+        int rotateDegrees = item.isExpanded() ? 180 : 0;
+
+        if (item.hasChildren()) {
             holder.icon.setVisibility(View.VISIBLE);
-            RotateAnimation rotate = new RotateAnimation(180,180, RELATIVE_TO_SELF, 0.5f, RELATIVE_TO_SELF, 0.5f);
-            rotate.setFillAfter(true);
-            holder.icon.setAnimation(rotate);
-        } else if (item.hasChildren() && !item.isExpanded()) {
-            holder.icon.setVisibility(View.VISIBLE);
-            RotateAnimation rotate = new RotateAnimation(0,0, RELATIVE_TO_SELF, 0.5f, RELATIVE_TO_SELF, 0.5f);
+            RotateAnimation rotate = new RotateAnimation(rotateDegrees,rotateDegrees, RELATIVE_TO_SELF, 0.5f, RELATIVE_TO_SELF, 0.5f);
             rotate.setFillAfter(true);
             holder.icon.setAnimation(rotate);
         } else {
@@ -97,6 +101,12 @@ public class MyAdapter extends ExpandableRecyclerViewAdapter {
 
         float density = context.getResources().getDisplayMetrics().density;
         ((ViewGroup.MarginLayoutParams) holder.itemContainer.getLayoutParams()).leftMargin = (int) ((getItemViewType(position) * 30) * density + 0.5f);
+    }
+
+    public void setItems(List<Item> itemList) {
+        this.itemList = itemList;
+        setRecyclerViewItemList(itemList);
+        notifyDataSetChanged();
     }
 
     private class Holder extends RecyclerView.ViewHolder {

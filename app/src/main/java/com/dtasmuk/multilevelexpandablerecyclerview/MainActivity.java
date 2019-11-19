@@ -77,7 +77,8 @@ public class MainActivity extends AppCompatActivity {
         adapterList.add(item2);
         adapterList.add(item3);
 
-        adapter = new MyAdapter(this, adapterList);
+        adapter = new MyAdapter(this);
+        adapter.setItems(adapterList);
         adapter.expandAll();
         rv.setAdapter(adapter);
     }

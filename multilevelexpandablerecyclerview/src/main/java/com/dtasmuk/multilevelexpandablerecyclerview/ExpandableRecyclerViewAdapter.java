@@ -18,11 +18,12 @@ public abstract class ExpandableRecyclerViewAdapter extends RecyclerView.Adapter
     private ArrayList<RecyclerViewItem> recyclerViewItemList;
 
     @SuppressWarnings("unchecked")
-    public ExpandableRecyclerViewAdapter(List<?> recyclerViewItems) {
+    protected ExpandableRecyclerViewAdapter(List<?> recyclerViewItems) {
         this.recyclerViewItemList = (ArrayList<RecyclerViewItem>) recyclerViewItems;
     }
 
-    public void setRecyclerViewItemList(List<RecyclerViewItem> recyclerViewItemList) {
+    @SuppressWarnings("unchecked")
+    protected void setRecyclerViewItemList(List<? extends RecyclerViewItem> recyclerViewItemList) {
         this.recyclerViewItemList = (ArrayList<RecyclerViewItem>) recyclerViewItemList;
     }
 
