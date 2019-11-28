@@ -16,6 +16,7 @@ public class RecyclerViewItem implements Parcelable {
     private boolean expanded = false;
     private boolean selected = false;
     private boolean selectable = true;
+    private boolean canHaveChildren = true;
 
     public RecyclerViewItem() {
         this.children = new ArrayList<>();
@@ -58,16 +59,20 @@ public class RecyclerViewItem implements Parcelable {
     }
 
     public void setChildren(List<? extends RecyclerViewItem> children) {
-        for (RecyclerViewItem child : children) {
-            addChild(child);
-        };
+        if (canHaveChildren) {
+            for (RecyclerViewItem child : children) {
+                addChild(child);
+            }
+        }
     }
 
     public void addChild(RecyclerViewItem child) {
-        child.parent = this;
-        child.setLevel(level + 1);
-        children.add(child);
-        setSelected(allChildrenSelected(this));
+        if (canHaveChildren) {
+            child.parent = this;
+            child.setLevel(level + 1);
+            children.add(child);
+            setSelected(allChildrenSelected(this));
+        }
     }
 
     public boolean isExpanded() {
@@ -84,6 +89,14 @@ public class RecyclerViewItem implements Parcelable {
 
     public void setSelected(boolean selected) {
         this.selected = selected;
+    }
+
+    public boolean isCanHaveChildren() {
+        return canHaveChildren;
+    }
+
+    public void setCanHaveChildren(boolean canHaveChildren) {
+        this.canHaveChildren = canHaveChildren;
     }
 
     public void setSelectedParent() {
@@ -135,6 +148,7 @@ public class RecyclerViewItem implements Parcelable {
         expanded = in.readByte() != 0x00;
         selected = in.readByte() != 0x00;
         selectable = in.readByte() != 0x00;
+        canHaveChildren = in.readByte() != 0x00;
     }
 
     @Override
@@ -155,6 +169,7 @@ public class RecyclerViewItem implements Parcelable {
         dest.writeByte((byte) (expanded ? 0x01 : 0x00));
         dest.writeByte((byte) (selected ? 0x01 : 0x00));
         dest.writeByte((byte) (selectable ? 0x01 : 0x00));
+        dest.writeByte((byte) (canHaveChildren ? 0x01 : 0x00));
     }
 
     @SuppressWarnings("unused")
