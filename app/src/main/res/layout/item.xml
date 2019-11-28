@@ -15,7 +15,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         android:contentDescription="@string/expand_collapse"
-        android:src="@drawable/ic_expand" />
+        android:src="@drawable/ic_arrow_expand" />
 
     <TextView
         android:id="@+id/title"
