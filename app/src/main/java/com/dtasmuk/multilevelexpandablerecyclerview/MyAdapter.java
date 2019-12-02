@@ -29,7 +29,6 @@ public class MyAdapter extends ExpandableRecyclerViewAdapter {
 
     private Context context;
     private List<Item> itemList;
-    private List<Item> rootItems;
 
     MyAdapter(Context context, List<Item> itemList) {
         super(itemList);
@@ -41,7 +40,6 @@ public class MyAdapter extends ExpandableRecyclerViewAdapter {
         super(new ArrayList<>());
         this.context = context;
         this.itemList = new ArrayList<>();
-        this.rootItems = new ArrayList<>();
     }
 
     @NonNull
@@ -113,11 +111,10 @@ public class MyAdapter extends ExpandableRecyclerViewAdapter {
     }
 
     @SuppressWarnings("unchecked")
-    public void setItems(List<Item> itemList) {
-        this.itemList = itemList;
-        setRecyclerViewItemList(itemList);
-        rootItems = (List<Item>) getRootItems();
-        notifyDataSetChanged();
+    @Override
+    protected void setItemList(List<? extends RecyclerViewItem> itemList) {
+        this.itemList = (List<Item>) itemList;
+        super.setItemList(itemList);
     }
 
     private void rotateArrow(final Holder holder, final boolean is_expanded) {

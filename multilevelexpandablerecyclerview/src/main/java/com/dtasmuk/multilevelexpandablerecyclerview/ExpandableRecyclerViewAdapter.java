@@ -13,7 +13,7 @@ import java.util.List;
 
 public abstract class ExpandableRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    private static final String EXPAND_STATE_MAP = "expandable_recyclerview_adapter_expand_state_map";
+    private static final String EXPAND_STATE_MAP = "expandable_recycler_view_adapter_expand_state_map";
 
     private ArrayList<RecyclerViewItem> recyclerViewItemList;
 
@@ -23,8 +23,9 @@ public abstract class ExpandableRecyclerViewAdapter extends RecyclerView.Adapter
     }
 
     @SuppressWarnings("unchecked")
-    protected void setRecyclerViewItemList(List<? extends RecyclerViewItem> recyclerViewItemList) {
-        this.recyclerViewItemList = (ArrayList<RecyclerViewItem>) recyclerViewItemList;
+    protected void setItemList(List<? extends RecyclerViewItem> itemList) {
+        this.recyclerViewItemList = (ArrayList<RecyclerViewItem>) itemList;
+        notifyDataSetChanged();
     }
 
     @NonNull
